@@ -4,6 +4,7 @@ from aiogram import Bot, Dispatcher
 from config import TOKEN
 from database import create_table
 from routers.main_menu import main_router
+from routers.contacts_info import router as contacts_info_router
 
 async def main():
     logging.basicConfig(level=logging.INFO)
@@ -12,6 +13,7 @@ async def main():
 
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
+    dp.include_router(contacts_info_router)
     dp.include_router(main_router)
 
     await dp.start_polling(bot)

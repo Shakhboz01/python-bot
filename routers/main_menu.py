@@ -1,5 +1,5 @@
 from aiogram import Router, F
-from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import Message
 from aiogram.filters import CommandStart
 from database import get_user, add_user, CYRILLIC_NAME_REGEX, PHONE_REGEX
 from keyboards.main_keyboard import main_menu
