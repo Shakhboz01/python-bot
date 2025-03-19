@@ -3,7 +3,7 @@ import logging
 from aiogram import Bot, Dispatcher
 from config import TOKEN
 from database import create_table
-from handlers import main_router
+from routers.main_menu import main_router
 
 async def main():
     logging.basicConfig(level=logging.INFO)
