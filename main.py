@@ -14,7 +14,7 @@ from routers.request_submission import router as request_submission_router
 from states.registration_state import router as registration_state_router
 from states.account_settings_state import router as account_settings_state_router
 from states.suggestion_state import router as suggestion_state_router
-
+from states.request_form_submission_state import router as request_form_submission_router
 
 async def main():
     logging.basicConfig(level=logging.INFO)
@@ -31,6 +31,7 @@ async def main():
     dp.include_router(callback_router)
     dp.include_router(request_submission_router)
     dp.include_router(suggestion_state_router)
+    dp.include_router(request_form_submission_router)
     dp.include_router(main_router)
 
     await dp.start_polling(bot)

@@ -1,6 +1,8 @@
 import os
 
 TOKEN = "7056694119:AAEvfWv2zXcx6PU-xpsLPgI6g_1goTd9eXM"
+SUGGESTION_GROUP_ID = -4631587118
+FORM_REQUEST_GROUP_ID = -1002521973596
 
 DB_CONFIG = {
     "database": "python_db",

@@ -3,7 +3,7 @@ from aiogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 
 router = Router()
 
-@router.message(F.text.lower() == 'связаться')
+@router.message(F.text.lower() == 'оставить заявку')
 async def account_settings(message: Message):
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[

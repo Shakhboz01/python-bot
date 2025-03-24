@@ -3,7 +3,7 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from database import get_user
-
+from config import SUGGESTION_GROUP_ID
 class SuggestionState(StatesGroup):
     suggestion = State()
 
@@ -23,10 +23,10 @@ async def process_suggestion(message: Message, state: FSMContext):
                     f"👤 Номер телефона: {user['phone_number']}\n" \
                     f"📝 Содержание: {suggestion_text}"
 
-    await message.bot.send_message(-4631587118, admin_message, parse_mode="Markdown")
+    await message.bot.send_message(SUGGESTION_GROUP_ID, admin_message, parse_mode="Markdown")
 
     if photo_id:
-        await message.bot.send_photo(-4631587118, photo=photo_id)
+        await message.bot.send_photo(SUGGESTION_GROUP_ID, photo=photo_id)
 
     await message.answer("✅ Ваше предложение принято и отправлено на рассмотрение!")
     await state.clear()
