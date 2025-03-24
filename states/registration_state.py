@@ -1,6 +1,5 @@
 from aiogram.fsm.state import State, StatesGroup
-from aiogram import Router, F
-from aiogram.filters import Command
+from aiogram import Router
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from database import add_user, CYRILLIC_NAME_REGEX, PHONE_REGEX

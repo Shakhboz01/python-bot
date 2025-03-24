@@ -34,3 +34,19 @@ async def add_user(chat_id, full_name, phone_number):
         chat_id, full_name, phone_number
     )
     await db.close()
+
+async def update_full_name(chat_id, full_name):
+    db = await connect_db()
+    await db.execute(
+        "UPDATE users SET full_name = $1 WHERE chat_id = $2;",
+        full_name, chat_id
+    )
+    await db.close()
+
+async def update_phone_number(chat_id, phone_number):
+    db = await connect_db()
+    await db.execute(
+        "UPDATE users SET phone_number = $1 WHERE chat_id = $2;",
+        phone_number, chat_id
+    )
+    await db.close()
