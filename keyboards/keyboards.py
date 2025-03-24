@@ -1,0 +1,69 @@
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+
+def main_menu():
+    keyboard = ReplyKeyboardMarkup(
+        keyboard=[
+            [
+                KeyboardButton(text='Оставить заявку'),
+                KeyboardButton(text='Связаться')
+            ],
+            [KeyboardButton(text='⚙️ Настройки')],
+            [KeyboardButton(text='Полезные контакты')],
+        ],
+        resize_keyboard=True
+    )
+    return keyboard
+
+def get_contact_keyboard():
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📞 Перезвоните мне", callback_data="call_me")],
+        [InlineKeyboardButton(text="📞 Свяжитесь со мной в чат-боте", callback_data="chat_bot")],
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back")]
+    ])
+    return keyboard
+
+def account_settings_keyboard():
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="Изменить имя", callback_data="change_name")],
+        [InlineKeyboardButton(text="Изменить номер телефона", callback_data="change_number")],
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back")]
+    ])
+    return keyboard
+
+def request_form_submission_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(text="Оставить заявку", callback_data="request_form_submission"),
+                InlineKeyboardButton(text="Поделиться предложением", callback_data="make_sugestion"),
+            ],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main"),],
+        ]
+    )
+    return keyboard
+
+def skip_step_1_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Пропустить", callback_data="skip_request_form_submission_step_1")],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main")],
+        ]
+    )
+    return keyboard
+
+def skip_step_2_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Пропустить", callback_data="skip_request_form_submission_step_2")],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main")],
+        ]
+    )
+    return keyboard
+
+def step_3_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main")]
+        ]
+    )
+    return keyboard

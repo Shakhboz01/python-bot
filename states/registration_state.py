@@ -3,7 +3,7 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.fsm.context import FSMContext
 from database import add_user, CYRILLIC_NAME_REGEX, PHONE_REGEX
-from keyboards.main_keyboard import main_menu
+from keyboards.keyboards import main_menu
 
 class RegistrationState(StatesGroup):
     full_name = State()

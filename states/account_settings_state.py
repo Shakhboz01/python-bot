@@ -4,7 +4,7 @@ from aiogram.types import Message
 from database import CYRILLIC_NAME_REGEX, PHONE_REGEX, update_full_name, update_phone_number, get_user
 from aiogram import Router
 
-from keyboards.main_keyboard import main_menu
+from keyboards.keyboards import main_menu
 
 
 class AccountSettingsState(StatesGroup):

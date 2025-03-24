@@ -2,7 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 from database import get_user
-from keyboards.main_keyboard import main_menu
+from keyboards.keyboards import main_menu
 from states.registration_state import RegistrationState
 from aiogram.fsm.context import FSMContext
 
