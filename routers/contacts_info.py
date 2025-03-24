@@ -1,5 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import Message
+
+from middlewares.banned_user import BanCheckMiddleware
 router = Router()
 
 @router.message(F.text.lower() == "полезные контакты")

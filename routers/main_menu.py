@@ -7,7 +7,6 @@ from states.registration_state import RegistrationState
 from aiogram.fsm.context import FSMContext
 
 main_router = Router()
-user_data = {}
 
 # 🏠 Main Menu
 @main_router.message(CommandStart())
@@ -18,6 +17,5 @@ async def start_handler(message: Message, state: FSMContext):
     if user:
         await message.answer("Welcome back! 🎉", reply_markup=main_menu())
     else:
-        user_data[chat_id] = {}
         await message.answer("Hello! What's your full name?")
         await state.set_state(RegistrationState.full_name)
