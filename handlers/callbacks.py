@@ -1,6 +1,9 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
+from config import CALLBACK_REQUESTS_GROUP_ID
+from database import get_user
 from keyboards.keyboards import (
+    ask_if_phone_number_is_correct,
     main_menu,
     skip_step_1_keyboard,
     skip_step_2_keyboard,
@@ -57,3 +60,19 @@ async def go_back_callback(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer("🔙 Вы вернулись в главное меню.", reply_markup=main_menu())
     await callback.answer()
     await state.clear()
+
+@router.callback_query(F.data == "call_me")
+async def call_me_callback(callback: CallbackQuery):
+    user = await get_user(callback.from_user.id)
+    text = f"Это Ваш верный номер телефона {user["phone_number"]}?\n" \
+           f"Если да, нажмите соответствующую кнопку, если нет, впишите свой актуальный номер телефона здесь"
+    await callback.message.answer(text, reply_markup=ask_if_phone_number_is_correct())
+    await callback.answer()
+
+@router.callback_query(F.data == "send_callback_request_notification")
+async def send_callback_request_notification(callback: CallbackQuery):
+    user = await get_user(callback.from_user.id)
+    await callback.message.answer("Ваш запрос на обратный звонок отправлен.")
+    await callback.answer()
+    # Send notification to the admin
+    await callback.message.bot.send_message(CALLBACK_REQUESTS_GROUP_ID, f"📞 Пользователь просит перезвонить ему. {user['phone_number']}")

@@ -10,7 +10,7 @@ from routers.main_menu import main_router
 from routers.account_settings import router as account_settings_router
 from routers.contacts_info import router as contacts_info_router
 from routers.request_submission import router as request_submission_router
-
+from routers.contact_request import router as contact_request_router
 from states.registration_state import router as registration_state_router
 from states.account_settings_state import router as account_settings_state_router
 from states.suggestion_state import router as suggestion_state_router
@@ -32,6 +32,7 @@ async def main():
     dp.include_router(request_submission_router)
     dp.include_router(suggestion_state_router)
     dp.include_router(request_form_submission_router)
+    dp.include_router(contact_request_router)
     dp.include_router(main_router)
 
     await dp.start_polling(bot)

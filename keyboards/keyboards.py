@@ -67,3 +67,12 @@ def step_3_keyboard():
         ]
     )
     return keyboard
+
+def ask_if_phone_number_is_correct():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Да", callback_data="send_callback_request_notification")],
+            [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main")]
+        ]
+    )
+    return keyboard
