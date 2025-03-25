@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 
 def main_menu():
     keyboard = ReplyKeyboardMarkup(
-        [
+        keyboard=[
             [
                 KeyboardButton(text='Оставить заявку'),
                 KeyboardButton(text='Связаться')

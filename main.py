@@ -16,6 +16,7 @@ from states.account_settings_state import router as account_settings_state_route
 from states.suggestion_state import router as suggestion_state_router
 from states.request_form_submission_state import router as request_form_submission_router
 from states.chat_with_admin_state import router as chat_with_admin_router
+from admin.users import router as admin_users_router
 
 async def main():
     logging.basicConfig(level=logging.INFO)
@@ -36,6 +37,7 @@ async def main():
     dp.include_router(contact_request_router)
     dp.include_router(chat_with_admin_router)
     dp.include_router(main_router)
+    dp.include_router(admin_users_router)
 
     await dp.start_polling(bot)
 
