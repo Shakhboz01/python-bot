@@ -1,13 +1,16 @@
 import os
+from dotenv import load_dotenv
 
-TOKEN = "7056694119:AAEvfWv2zXcx6PU-xpsLPgI6g_1goTd9eXM"
-SUGGESTION_GROUP_ID = -4631587118
-FORM_REQUEST_GROUP_ID = -1002521973596
-CALLBACK_REQUESTS_GROUP_ID = -4674316162
+load_dotenv()
+
+TOKEN = os.getenv("TOKEN")
+SUGGESTION_GROUP_ID = int(os.getenv("SUGGESTION_GROUP_ID", -1))
+FORM_REQUEST_GROUP_ID = int(os.getenv("FORM_REQUEST_GROUP_ID", -1))
+CALLBACK_REQUESTS_GROUP_ID = int(os.getenv("CALLBACK_REQUESTS_GROUP_ID", -1))
 DB_CONFIG = {
-    "database": "python_db",
-    "user": "postgres",
-    "password": "998915309764",
-    "host": "localhost",
-    "port": 5432,
+    "database": os.getenv("DB_NAME", "default_db"),
+    "user": os.getenv("DB_USER", "default_user"),
+    "password": os.getenv("DB_PASSWORD", ""),
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": int(os.getenv("DB_PORT", 5432)),
 }
