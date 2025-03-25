@@ -8,27 +8,6 @@ router = Router()
 router.message.middleware(AdminCheckMiddleware())
 USERS_PER_PAGE = 10
 
-def user_list_keyboard(users, page):
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[])
-
-    for user in users:
-        keyboard.inline_keyboard.append([
-            InlineKeyboardButton(
-                text=f"{user['full_name']} ({'Banned' if user['is_banned'] else 'Active'})",
-                callback_data=f"toggle_ban:{user['chat_id']}"
-            )
-        ])
-
-    pagination_buttons = []
-    if page > 1:
-        pagination_buttons.append(InlineKeyboardButton(text="⬅️ Previous", callback_data=f"page:{page - 1}"))
-    pagination_buttons.append(InlineKeyboardButton(text="➡️ Next", callback_data=f"page:{page + 1}"))
-
-    if pagination_buttons:
-        keyboard.inline_keyboard.append(pagination_buttons)
-
-    return keyboard
-
 @router.message(F.text.lower() == "list users")
 async def list_users(message: Message, state=None, page=1):
     db = await connect_db()
