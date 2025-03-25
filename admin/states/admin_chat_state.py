@@ -2,9 +2,8 @@ from aiogram import Router, F
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from admin.keyboads import ticket_actions_keyboard, unsolved_tickets_keyboard
-from database import connect_db, get_chats, create_outgoing_chat
-from middlewares.admin_check import AdminCheckMiddleware
+from admin.keyboads import ticket_actions_keyboard
+from database import connect_db, create_outgoing_chat
 
 class AdminChatState(StatesGroup):
     sending_message = State()

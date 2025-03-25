@@ -128,3 +128,9 @@ async def get_chats(ticket_id):
     chats = await db.fetch("SELECT * FROM chats WHERE ticket_id = $1", ticket_id)
     await db.close()
     return chats
+
+async def get_users():
+    db = await connect_db()
+    users = await db.fetch("SELECT * FROM users WHERE is_banned = FALSE AND is_admin = FALSE")
+    await db.close()
+    return users

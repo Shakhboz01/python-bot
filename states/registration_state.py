@@ -13,7 +13,7 @@ router = Router()
 @router.message(RegistrationState.full_name)
 async def process_full_name_registration(message: Message, state: FSMContext) -> None:
     if not CYRILLIC_NAME_REGEX.match(message.text):
-        await message.answer('name mismatch')
+        await message.answer('⛔👑 Имя и Фамилия должны быть введены через один пробел, и должны быть написаны через кириллицу. Также должны быть заглавные буквы. Учтите формат и попробуйте снова:')
         return
     await state.update_data(full_name = message.text)
     await state.set_state(RegistrationState.phone_number)
@@ -22,7 +22,7 @@ async def process_full_name_registration(message: Message, state: FSMContext) ->
 @router.message(RegistrationState.phone_number)
 async def process_phone_number_registration(message: Message, state: FSMContext) -> None:
     if not PHONE_REGEX.match(message.text):
-        await message.answer('phone number mismatch')
+        await message.answer('⛔👑⛔ Номер телефона должен содержать 11 цифр и должен обязательно содержать в начале +7. Учтите формат и попробуйте снова:')
         return
     await state.update_data(phone_number = message.text)
     await state.set_state(RegistrationState.phone_number)

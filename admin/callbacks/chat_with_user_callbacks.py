@@ -1,10 +1,9 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
-from aiogram.fsm.state import State, StatesGroup
 from admin.keyboads import ticket_actions_keyboard, unsolved_tickets_keyboard
 from admin.states.admin_chat_state import AdminChatState
-from database import connect_db, get_chats, create_outgoing_chat
+from database import connect_db, get_chats
 from middlewares.admin_check import AdminCheckMiddleware
 
 router = Router()

@@ -1,5 +1,5 @@
 from typing import Callable, Dict, Awaitable, Any
-from aiogram.types import TelegramObject, Update, Message
+from aiogram.types import TelegramObject, Update
 from aiogram.dispatcher.middlewares.base import BaseMiddleware
 from database import get_user
 
