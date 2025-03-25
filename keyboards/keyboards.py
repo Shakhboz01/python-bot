@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 
 def main_menu():
     keyboard = ReplyKeyboardMarkup(
-        keyboard=[
+        [
             [
                 KeyboardButton(text='Оставить заявку'),
                 KeyboardButton(text='Связаться')
@@ -17,7 +17,7 @@ def main_menu():
 def get_contact_keyboard():
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="📞 Перезвоните мне", callback_data="call_me")],
-        [InlineKeyboardButton(text="📞 Свяжитесь со мной в чат-боте", callback_data="chat_bot")],
+    [InlineKeyboardButton(text="📞 Свяжитесь со мной в чат-боте", callback_data="chat_bot")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back")]
     ])
     return keyboard
@@ -73,6 +73,14 @@ def ask_if_phone_number_is_correct():
         inline_keyboard=[
             [InlineKeyboardButton(text="Да", callback_data="send_callback_request_notification")],
             [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back_to_main")]
+        ]
+    )
+    return keyboard
+
+def close_dialog_keyboard():
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="Закрыть диалог", callback_data="close_dialog")]
         ]
     )
     return keyboard

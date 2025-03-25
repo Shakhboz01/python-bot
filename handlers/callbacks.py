@@ -1,9 +1,10 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
 from config import CALLBACK_REQUESTS_GROUP_ID
-from database import get_user
+from database import close_tickets, get_user
 from keyboards.keyboards import (
     ask_if_phone_number_is_correct,
+    close_dialog_keyboard,
     main_menu,
     skip_step_1_keyboard,
     skip_step_2_keyboard,
@@ -11,6 +12,7 @@ from keyboards.keyboards import (
 )
 from aiogram.fsm.context import FSMContext
 from states.account_settings_state import AccountSettingsState
+from states.chat_with_admin_state import ChatWithAdminState
 from states.suggestion_state import SuggestionState
 from states.request_form_submission_state import RequestFormSubmissionState
 
@@ -76,3 +78,17 @@ async def send_callback_request_notification(callback: CallbackQuery):
     await callback.answer()
     # Send notification to the admin
     await callback.message.bot.send_message(CALLBACK_REQUESTS_GROUP_ID, f"📞 Пользователь просит перезвонить ему. {user['phone_number']}")
+
+@router.callback_query(F.data == "chat_bot")
+async def chat_bot_callback(callback: CallbackQuery, state = FSMContext):
+    text = "✅✅📞 Добрый день! Я - диспетчер управляющей компании 'УЭР-ЮГ', готов помочь Вам. Напишите, пожалуйста, интересующий Вас вопрос и ожидайте."
+    await callback.message.answer(text=text, reply_markup=close_dialog_keyboard())
+    await callback.answer()
+    await state.set_state(ChatWithAdminState.message)
+
+@router.callback_query(F.data == "close_dialog")
+async def close_dialog_callback(callback: CallbackQuery, state= FSMContext):
+    await callback.message.answer("🔒 Диалог закрыт.")
+    await callback.answer()
+    await state.clear()
+    await close_tickets(callback.from_user.id)
