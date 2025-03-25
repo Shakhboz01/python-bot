@@ -43,4 +43,4 @@ async def toggle_ban(callback: CallbackQuery):
         await db.execute("UPDATE users SET is_banned = NOT is_banned WHERE chat_id = $1", chat_id)
         await db.close()
         await list_users(callback.message, page=1)
-        await callback.answer("✅ User banned." if user['is_banned'] else "✅ User unbanned.")
+        await callback.answer("✅ User unbanned." if user['is_banned'] else "✅ User banned.")
