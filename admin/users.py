@@ -2,15 +2,15 @@ from aiogram import Router, F
 from aiogram.types import CallbackQuery, Message, InlineKeyboardMarkup, InlineKeyboardButton
 from database import connect_db
 from admin.keyboads import user_list_keyboard
+from middlewares.admin_check import AdminCheckMiddleware
 
 router = Router()
-
+router.message.middleware(AdminCheckMiddleware())
 USERS_PER_PAGE = 10
 
 def user_list_keyboard(users, page):
-    keyboard = InlineKeyboardMarkup(inline_keyboard=[])  # Initialize with an empty list
+    keyboard = InlineKeyboardMarkup(inline_keyboard=[])
 
-    # Add user buttons
     for user in users:
         keyboard.inline_keyboard.append([
             InlineKeyboardButton(
@@ -19,7 +19,6 @@ def user_list_keyboard(users, page):
             )
         ])
 
-    # Add pagination buttons
     pagination_buttons = []
     if page > 1:
         pagination_buttons.append(InlineKeyboardButton(text="⬅️ Previous", callback_data=f"page:{page - 1}"))
