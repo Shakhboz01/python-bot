@@ -8,7 +8,7 @@ router = Router()
 router.message.middleware(AdminCheckMiddleware())
 USERS_PER_PAGE = 10
 
-@router.message(F.text.lower() == "list users")
+@router.message(F.text.lower() == "activate&inactivate users")
 async def list_users(message: Message, state=None, page=1):
     db = await connect_db()
     offset = (page - 1) * USERS_PER_PAGE

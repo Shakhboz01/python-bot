@@ -4,7 +4,7 @@ def main_menu(is_admin=False):
     if is_admin:
         keyboard = ReplyKeyboardMarkup(
             keyboard=[
-                [KeyboardButton(text='list users')], [KeyboardButton(text='unsloved tickets')],
+                [KeyboardButton(text='activate&inactivate users')], [KeyboardButton(text='unsloved tickets')],
                 [KeyboardButton(text='Массовая рассылка')],
             ],
             resize_keyboard=True
