@@ -1,17 +1,20 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
-def main_menu():
-    keyboard = ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                KeyboardButton(text='Оставить заявку'),
-                KeyboardButton(text='Связаться')
+def main_menu(is_admin=False):
+    if is_admin:
+        keyboard = ReplyKeyboardMarkup(
+            keyboard=[[KeyboardButton(text='list users')], [KeyboardButton(text='unsloved tickets')]],
+            resize_keyboard=True
+        )
+    else:
+        keyboard = ReplyKeyboardMarkup(
+            keyboard=[
+                [KeyboardButton(text='Оставить заявку'), KeyboardButton(text='Связаться')],
+                [KeyboardButton(text='⚙️ Настройки')],
+                [KeyboardButton(text='Полезные контакты')],
             ],
-            [KeyboardButton(text='⚙️ Настройки')],
-            [KeyboardButton(text='Полезные контакты')],
-        ],
-        resize_keyboard=True
-    )
+            resize_keyboard=True
+        )
     return keyboard
 
 def get_contact_keyboard():

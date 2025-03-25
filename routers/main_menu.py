@@ -15,7 +15,7 @@ async def start_handler(message: Message, state: FSMContext):
     user = await get_user(chat_id)
 
     if user:
-        await message.answer("Welcome back! 🎉", reply_markup=main_menu())
+        await message.answer("Welcome back! 🎉", reply_markup=main_menu(is_admin = user['is_admin']))
     else:
         await message.answer("Hello! What's your full name?")
         await state.set_state(RegistrationState.full_name)
