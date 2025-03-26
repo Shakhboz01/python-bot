@@ -2,7 +2,7 @@ import asyncpg
 from config import DB_CONFIG
 import re
 
-CYRILLIC_NAME_REGEX = re.compile(r"^[А-ЯЁа-яё]+ [А-ЯЁа-яё]+$")  # Full name (one space, Cyrillic)
+CYRILLIC_NAME_REGEX = re.compile(r"^[А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$")  # Full name (one space, Cyrillic, starts with uppercase)
 PHONE_REGEX = re.compile(r"^\+7\d{10}$")
 
 

@@ -20,13 +20,13 @@ router = Router()
 
 @router.callback_query(F.data == "change_name")
 async def change_name_callback(callback: CallbackQuery, state: FSMContext):
-    await callback.message.edit_text("✍️ Пожалуйста, отправьте мне ваше новое имя и фамилию.")
+    await callback.message.edit_text("🛠️ Отправьте своё Имя и Фамилию, чтобы поменять настройки:")
     await callback.answer()
     await state.set_state(AccountSettingsState.full_name)
 
 @router.callback_query(F.data == "change_number")
 async def change_number_callback(callback: CallbackQuery, state: FSMContext):
-    await callback.message.edit_text("📱 Пожалуйста, отправьте ваш новый номер телефона.")
+    await callback.message.edit_text("🛠️ Отправьте свой номер телефона, чтобы поменять настройки:")
     await callback.answer()
     await state.set_state(AccountSettingsState.phone_number)
 

@@ -12,9 +12,9 @@ def main_menu(is_admin=False):
     else:
         keyboard = ReplyKeyboardMarkup(
             keyboard=[
-                [KeyboardButton(text='Оставить заявку'), KeyboardButton(text='Связаться')],
+                [KeyboardButton(text='⛔ Оставить заявку'), KeyboardButton(text='📞 Связаться')],
                 [KeyboardButton(text='⚙️ Настройки')],
-                [KeyboardButton(text='Полезные контакты')],
+                [KeyboardButton(text='☎️ Полезные контакты')],
             ],
             resize_keyboard=True
         )
@@ -30,9 +30,12 @@ def get_contact_keyboard():
 
 def account_settings_keyboard():
     keyboard = InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text="Изменить имя", callback_data="change_name")],
-        [InlineKeyboardButton(text="Изменить номер телефона", callback_data="change_number")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data="go_back")]
+        [
+            InlineKeyboardButton(text="🛠️ Поменять имя", callback_data="change_name"),
+            InlineKeyboardButton(text="🛠️ Сменить номер", callback_data="change_number")
+        ],
+
+        [InlineKeyboardButton(text="🔙 Назад", callback_data="go_back")]
     ])
     return keyboard
 
