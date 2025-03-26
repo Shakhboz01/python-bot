@@ -9,17 +9,17 @@ from middlewares.admin_check import AdminCheckMiddleware
 router = Router()
 router.message.middleware(AdminCheckMiddleware())
 
-@router.message(F.text.lower() == 'unsloved tickets')
+@router.message(F.text.lower() == 'нерешенные тикеты')
 async def show_unsolved_tickets(message: Message):
     db = await connect_db()
     tickets = await db.fetch("SELECT id, user_id FROM tickets WHERE solved = FALSE")
     await db.close()
 
     if not tickets:
-        await message.answer("✅ No unsolved tickets found.")
+        await message.answer("✅ Нерешённых тикетов не найдено.")
         return
 
-    await message.answer("📝 Unsolved Tickets:", reply_markup=unsolved_tickets_keyboard(tickets))
+    await message.answer("📝 Нерешённые тикеты:", reply_markup=unsolved_tickets_keyboard(tickets))
 
 @router.callback_query(F.data.startswith("ticket:"))
 async def ticket_actions(callback: CallbackQuery):
@@ -38,7 +38,7 @@ async def mark_ticket_solved(callback: CallbackQuery):
     await db.execute("UPDATE tickets SET solved = TRUE WHERE id = $1", ticket_id)
     await db.close()
 
-    await callback.message.answer(f"✅ Ticket #{ticket_id} has been marked as solved.")
+    await callback.message.answer(f"✅ Тикет #{ticket_id} был отмечен как решённый.")
     await callback.answer()
 
 
@@ -50,7 +50,7 @@ async def show_ticket_chats(callback: CallbackQuery, state: FSMContext):
     await db.close()
 
     if not chats:
-        await callback.message.answer("💬 No chats found for this ticket.")
+        await callback.message.answer("💬 Чаты для этого тикета не найдены.")
         await callback.answer()
         return
 
@@ -58,10 +58,10 @@ async def show_ticket_chats(callback: CallbackQuery, state: FSMContext):
     chat_history = "\n".join(
         [f"{'👤 User' if chat['incoming'] else '🛠 Admin'}: {chat['message']}" for chat in chats]
     )
-    await callback.message.answer(f"💬 Chat History for Ticket #{ticket_id}:\n\n{chat_history}")
+    await callback.message.answer(f"💬 История чата #{ticket_id}:\n\n{chat_history}")
 
     # Set FSM state for sending a message
     await state.update_data(ticket_id=ticket_id)
     await state.set_state(AdminChatState.sending_message)
-    await callback.message.answer("✍️ Type your message to send to the user:")
+    await callback.message.answer("✍️ Напишите сообщение, чтобы отправить пользователю:")
     await callback.answer()

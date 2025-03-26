@@ -8,25 +8,31 @@ class SuggestionState(StatesGroup):
     suggestion = State()
 
 router = Router()
+
 @router.message(SuggestionState.suggestion)
 async def process_suggestion(message: Message, state: FSMContext):
     if not message.text:
-        await message.answer("❌ Ваше предложение должно содержать текст. Отправьте текст или текст с изображением.")
+        await message.answer("⛔📛Предложение должно содержать только текст.")
         return
 
     suggestion_text = message.text
     user = await get_user(message.from_user.id)
     photo_id = message.photo[-1].file_id if message.photo else None
 
-    admin_message = f"💡 *Поступило новое предложение:*\n\n" \
-                    f"👤 Пользователь: {user['full_name']}\n" \
-                    f"👤 Номер телефона: {user['phone_number']}\n" \
-                    f"📝 Содержание: {suggestion_text}"
+    username = f"@{message.from_user.username}" if message.from_user.username else "Не указан"
 
-    await message.bot.send_message(SUGGESTION_GROUP_ID, admin_message, parse_mode="Markdown")
+    admin_message = (
+        "     💡Поступило новое предложение:\n\n"
+        f"{username}\n"
+        f"<b>Имя и Фамилия:</b> {user['full_name']}\n"
+        f"<b>Номер телефона:</b> {user['phone_number']}\n"
+        f"<b>Содержание:</b> {suggestion_text}"
+    )
+
+    await message.bot.send_message(SUGGESTION_GROUP_ID, admin_message, parse_mode="HTML")
 
     if photo_id:
         await message.bot.send_photo(SUGGESTION_GROUP_ID, photo=photo_id)
 
-    await message.answer("✅ Ваше предложение принято и отправлено на рассмотрение!")
+    await message.answer("✅💡<b>Идея принята и передана администрации.</b> Спасибо за Ваше обращение!", parse_mode="HTML")
     await state.clear()

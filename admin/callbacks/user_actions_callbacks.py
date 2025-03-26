@@ -8,7 +8,7 @@ router = Router()
 router.message.middleware(AdminCheckMiddleware())
 USERS_PER_PAGE = 10
 
-@router.message(F.text.lower() == "activate&inactivate users")
+@router.message(F.text == "Блокировать&Разблокировать пользователей")
 async def list_users(message: Message, state=None, page=1):
     db = await connect_db()
     offset = (page - 1) * USERS_PER_PAGE
@@ -19,7 +19,7 @@ async def list_users(message: Message, state=None, page=1):
     await db.close()
 
     if not users:
-        await message.answer("❌ No users found.")
+        await message.answer("❌ Пользователи не найдены.")
         return
 
     await message.answer("👥 List of users:", reply_markup=user_list_keyboard(users, page))
@@ -37,10 +37,10 @@ async def toggle_ban(callback: CallbackQuery):
     user = await db.fetchrow("SELECT is_banned FROM users WHERE chat_id = $1", chat_id)
     if user is None:
         await db.close()
-        await callback.answer("❌ User not found.")
+        await callback.answer("❌ Пользователь не найден.")
         return
     else:
         await db.execute("UPDATE users SET is_banned = NOT is_banned WHERE chat_id = $1", chat_id)
         await db.close()
         await list_users(callback.message, page=1)
-        await callback.answer("✅ User unbanned." if user['is_banned'] else "✅ User banned.")
+        await callback.answer("✅ Пользователь разблокирован." if user['is_banned'] else "✅ Пользователь заблокирован.")

@@ -12,8 +12,8 @@ def user_list_keyboard(users, page):
     # Add pagination buttons
     pagination_buttons = []
     if page > 1:
-        pagination_buttons.append(InlineKeyboardButton(text="⬅️ Previous", callback_data=f"page:{page - 1}"))
-    pagination_buttons.append(InlineKeyboardButton(text="➡️ Next", callback_data=f"page:{page + 1}"))
+        pagination_buttons.append(InlineKeyboardButton(text="⬅️ Пред.", callback_data=f"page:{page - 1}"))
+    pagination_buttons.append(InlineKeyboardButton(text="➡️ След.", callback_data=f"page:{page + 1}"))
 
     if pagination_buttons:
         keyboard.add(*pagination_buttons)
@@ -40,8 +40,8 @@ def ticket_actions_keyboard(ticket_id):
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
             [
-                InlineKeyboardButton(text="✅ Mark as Solved", callback_data=f"mark_solved:{ticket_id}"),
-                InlineKeyboardButton(text="💬 Show Chats", callback_data=f"show_chats:{ticket_id}")
+                InlineKeyboardButton(text="✅ Завершить диалог", callback_data=f"mark_solved:{ticket_id}"),
+                InlineKeyboardButton(text="💬 Перейти в чат", callback_data=f"show_chats:{ticket_id}")
             ]
         ]
     )
@@ -60,8 +60,8 @@ def user_list_keyboard(users, page):
 
     pagination_buttons = []
     if page > 1:
-        pagination_buttons.append(InlineKeyboardButton(text="⬅️ Previous", callback_data=f"page:{page - 1}"))
-    pagination_buttons.append(InlineKeyboardButton(text="➡️ Next", callback_data=f"page:{page + 1}"))
+        pagination_buttons.append(InlineKeyboardButton(text="⬅️ пред.", callback_data=f"page:{page - 1}"))
+    pagination_buttons.append(InlineKeyboardButton(text="➡️ след.", callback_data=f"page:{page + 1}"))
 
     if pagination_buttons:
         keyboard.inline_keyboard.append(pagination_buttons)
